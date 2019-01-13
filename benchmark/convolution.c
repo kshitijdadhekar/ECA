@@ -35,16 +35,13 @@ BLOB* load_weights(BLOB* b, conv_param_t* p){
     BLOB* w=blob_alloc(p->num_out, b->d/p->group, Ky*Kx);
 
     //fill 4D weight structure
-    for(int g=0;g<p->group;g++)
-        for(int o=g*(p->num_out/p->group);o<(g+1)*(p->num_out/p->group);o++)
-            for(int i=g*(b->d/p->group);i<(g+1)*(b->d/p->group);i++)
-                //note: each output map has only  b->d/p->group input maps. Hence the absolute index of i is subtracted when storing in w!
-                if((int)fread( &(blob_data(w,o,i-g*(b->d/p->group),0)),sizeof(float),Ky*Kx, fp)!=Ky*Kx)
+    for(int o=0;o<p->num_out;o++)
+       for(int i=0;i<b->d;i++)
+        //note: each output map has only  b->d/p->group input maps. Hence the absolute index of i is subtracted when storing in w!
+           if((int)fread( &(blob_data(w,o,i,0)),sizeof(float),Ky*Kx, fp)!=Ky*Kx)
                     error("loading weights from file %s\n", p->weights);
-
-    //close file
+   //close file
     fclose(fp);
-
     //return weight blob
     return w;
 }
