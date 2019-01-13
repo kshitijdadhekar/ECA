@@ -1,4 +1,4 @@
-#include "convolution.h"
+#include "convolution.h" //kd
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
