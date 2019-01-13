@@ -1,4 +1,4 @@
-#include "convolution.h" //kd
+#include "convolution.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -126,8 +126,8 @@ BLOB* convolution(BLOB* input, conv_param_t* p){
 
     //done with padded blob, free
     if(p->pad!=0)
-        blob_free(in);
-
+        blob_free(in); 
+/**
     //perform batchnorm if needed
     if(p->bn_mean!=NULL){
 
@@ -163,7 +163,7 @@ BLOB* convolution(BLOB* input, conv_param_t* p){
         free(scale);
         free(scale_bias);
     }
-
+*/
     //perform relu
     if(p->relu==true)
         for(int i=0;i<blob_size(out); i++)
